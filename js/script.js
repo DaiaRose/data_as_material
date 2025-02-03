@@ -31,7 +31,7 @@ const baseText = `
     <span class="line-5">My feet crack the <span class="word-ice">ice</span> in the mud as I trudge uphill.</span> 
     
     <span class="line-6">And because the squeaks and grinding <span class="word-harmonics">harmonics</span> 
-    of <span class="word-fracturing">fracturing </span>ice sound to Mabel like a <span class="word-wounded">wounded</span> animal, every step I take is met with a <span class="word-convulsive">convulsive</span> 
+    of <span class="word-fracturing">fracturing </span><span class="word-ice">ice</span> sound to Mabel like a <span class="word-wounded">wounded</span> animal, every step I take is met with a <span class="word-convulsive">convulsive</span> 
     <span class="word-clench">clench</span> of her toes.</span> 
     
     <span class="line-7">Where the world isn’t <span class="word-white">white</span> with frost, it’s striped green and 
