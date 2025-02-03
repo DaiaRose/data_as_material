@@ -50,11 +50,11 @@ p {
 
 /* #endregion  */
 
-
+/* #region WEIGHT */
 .page-1 #page-content {font-size: 16px; font-weight: 100; margin: 200px;}
 .page-1 .word-cold {font-weight: 900; font-size: 19px; text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5); }
 
-.page-2 #page-content {font-size: 30px; margin: 100px;}
+.page-2 #page-content {font-size: 30px; margin: 80px;}
 .page-2 .line-1 { font-weight: 100; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); } 
 .page-2 .line-2 { font-weight: 200; text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); } 
 .page-2 .line-3 { font-weight: 300; text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.4); } 
@@ -62,7 +62,7 @@ p {
 .page-2 .line-5 { font-weight: 500; text-shadow: 5px 5px 6px rgba(0, 0, 0, 0.6); } 
 .page-2 .line-6 { font-weight: 600; text-shadow: 6px 6px 7px rgba(0, 0, 0, 0.7); } 
 .page-2 .line-7 { font-weight: 700; text-shadow: 7px 7px 8px rgba(0, 0, 0, 0.7); } 
-.page-2 .line-8 { font-weight: 800; text-shadow: 8px 8px 9px rgba(0, 0, 0, 0.9); } 
+.page-2 .line-8 { font-weight: 800; text-shadow: 8px 8px 9px rgba(0, 0, 0, 0.9); }
 
 
 .page-3 {
@@ -77,8 +77,94 @@ p {
     position: fixed; 
     bottom:0;}
 
+.page-4 #page-content {
+    font-size: 22px;
+    font-weight: bold;
+}
+    
+/* Style every second word inside .page-4 */
+.page-4 #page-content span:nth-child(even) {
+    font-family: "Ultra", serif;
+}
+    
+/* #endregion */
 
-.page-4 { font-size: 22px; font-weight: bold; }
+/* #region FONT */
+.page-5 #page-content { 
+    font-size: 24px; 
+    font-weight: bold;
+    font-family: "Major Mono Display", serif; 
+    height: 80vh;
+    transform: rotate(-10deg) translateY(50px);
+    transform-origin: center;
+    }
+    
+
+.page-6 #page-content {
+    font-family: "Rock 3D", serif;
+    font-weight: 100;
+    font-size: 2.5vw; 
+    line-height: 1.2; /* Reduces excessive space between lines */
+    width: 90vw; /* Keeps text inside viewport */
+    max-height: 90vh; /* Fills the screen */
+    transform: translateY(-50px);
+    text-align: center;
+    white-space: normal; /* Allows natural wrapping */
+    padding: 1vh;
+}
+        
+
+.page-7 #page-content {
+    font-size: 30px; 
+    margin: 40px; 
+    font-family: "Palette Mosaic", serif;
+}
+.page-7 .word-condensation { font-family: "Rock 3D", serif}
+.page-7 .word-saucers { font-family: "Rock 3D", serif}
+.page-7 .word-seafog { font-family: "Rock 3D", serif }
+.page-7 .word-harmonics{ font-family: "Rock 3D", serif}
+.page-7 .word-fracturing { font-family: "Rock 3D", serif}
+.page-7 .word-particoloured { font-family: "Rock 3D", serif}
+.page-7 .word-bare { font-family: "Rock 3D", serif}
+.page-7 .word-convulsive { font-family: "Rock 3D", serif}
+
+
+.page-8 #page-content {
+    line-height: 2;
+    margin: 40px; 
+}
+/* Assign different fonts to each line */
+.page-8 .line-1 { font-family: "Major Mono Display", serif; font-size: clamp(20px, 2vw, 60px);} 
+.page-8 .line-2 { font-family: "Palette Mosaic", serif; font-size: clamp(22px, 2vw, 65px);} 
+.page-8 .line-3 { font-family: "Barrio", serif; font-size: clamp(24px, 2vw, 70px);} 
+.page-8 .line-4 { font-family: "Cutive Mono", serif; text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5); font-size: clamp(26px, 2vw, 75px); }
+.page-8 .line-5 { font-family: "Rubik Glitch Pop", serif; font-size: clamp(28px, 2vw, 80px);} 
+.page-8 .line-6 { font-family: "Tapestry", serif; font-size: clamp(30px, 2vw, 35px);} 
+.page-8 .word-wounded { font-family: "Nosifer", serif; font-size: clamp(20px, 1vw, 25px);}
+.page-8 .line-7 { font-family: "Qahiri", serif;font-size: clamp(20px, 3vw, 40px);} 
+.page-8 .line-8 { font-family: "Rock 3D", serif; font-size: clamp(34px, 2vw, 95px);} 
+
+/* #endregion */
+
+/* #region SLANT */
+.page-9 #page-content {
+    line-height: 2;
+    margin: 40px; 
+    font-family: "Crimson Pro", serif;
+    font-style: oblique 60deg;
+    transform: rotate(-5deg) translateY(200px);
+}
+
+
+
+.page-11 { font-size: 40px; font-weight: bold;text-decoration: underline;
+    text-decoration-style: wavy; }
+/* #endregion */
+
+  
+
+
+
 
 /* 
 .word-ice { font-style: italic; }
@@ -91,7 +177,17 @@ p {
 .word-snapping { text-transform: uppercase; font-weight: bold; }
 .word-bare { letter-spacing: 2px; } */
 
-
-
-.page-5 { font-size: 24px; font-weight: normal; }
-.page-11 { font-size: 40px; font-weight: bold; }
+/* 
+.page-8  .line-1,
+.page-8  .line-2,
+.page-8  .line-3,
+.page-8  .line-4,
+.page-8  .line-5,
+.page-8  .line-6,
+.page-8  .line-7,
+.page-8  .line-8 {
+    display: block; 
+    width: 100%;
+    text-align: center; 
+    line-height: 1.2;
+} */
