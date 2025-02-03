@@ -219,37 +219,134 @@ p {
 
 
 /* #region BORDER*/
+
+.page-13 #page-content {
+    border: 3px solid black; /* Thick solid black border */
+    padding: 10px; /* Adds space inside the border */
+}
+
 .page-14 { font-size: 35px; font-weight: bold;text-decoration: underline;
     text-decoration-style: wavy; }
+
+
+.page-15  {
+    background-color: black;
+    color: white; 
+}
+
+.page-15 #page-content {
+    font-size: 20px;
+    font-family: "IBM Plex Sans", sans-serif;
+    line-height: 4;
+    .word-cold { border: 2px dotted rgb(244, 240, 240); }
+    .word-ice { border: 2px dotted rgb(160, 158, 158); }
+    .word-blackbirds { border: 2px dotted rgb(230, 227, 227); }
+    .word-seafog {border: 2px dotted rgb(221, 217, 217); }
+    .word-condensation { border: 2px dotted rgb(205, 199, 199);}
+    .word-harmonics { border: 2px dotted rgb(212, 211, 211); }
+    .word-clench { border: 2px dotted rgb(216, 214, 214); }
+    .word-white { border: 2px dotted rgb(173, 171, 171);}
+    .word-snapping { border: 2px dotted rgb(164, 164, 164);}
+    .word-bare { border: 2px dotted rgb(167, 164, 164); } 
+    .word-condensation { border: 2px dotted rgb(160, 156, 156);}
+    .word-wounded { border: 2px dotted rgb(219, 216, 216);}
+    .word-saucers { border: 2px dotted rgb(239, 236, 236);}
+    .word-seafog { border: 2px dotted rgb(237, 234, 234);}
+    .word-harmonics{ border: 2px dotted rgb(240, 235, 235);}
+    .word-fracturing { border: 2px dotted rgb(158, 157, 157);}
+    .word-particoloured { border: 2px dotted rgb(237, 230, 230);}
+    .word-bare {border: 2px dotted rgb(219, 214, 214);}
+    .word-convulsive { border: 2px dotted rgb(103, 102, 102);}
+}
+
+.page-16 #page-content {
+    font-size: 30px; 
+    margin: 30px; 
+    font-family: "Palette Mosaic", serif;
+    border: 12px double black;
+    padding: 10px;
+}
+
 /* #endregion */
 
   
+/* #region SPACE */
 
 
-
-
-/* 
-.word-ice { font-style: italic; }
-.word-blackbirds { text-transform: uppercase; }
-.word-seafog { font-weight: lighter; }
-.word-condensation { text-decoration: underline; }
-.word-harmonics { font-size: larger; }
-.word-clench { font-style: italic; }
-.word-white { font-weight: bold; }
-.word-snapping { text-transform: uppercase; font-weight: bold; }
-.word-bare { letter-spacing: 2px; } */
-
-/* 
-.page-8  .line-1,
-.page-8  .line-2,
-.page-8  .line-3,
-.page-8  .line-4,
-.page-8  .line-5,
-.page-8  .line-6,
-.page-8  .line-7,
-.page-8  .line-8 {
+.page-17  .line-1,
+.page-17  .line-2,
+.page-17  .line-3,
+.page-17  .line-4,
+.page-17  .line-5,
+.page-17  .line-6,
+.page-17  .line-7,
+.page-17  .line-8 {
     display: block; 
-    width: 100%;
-    text-align: center; 
+    width: 100%; 
     line-height: 1.2;
-} */
+    font-size: 20px;
+    letter-spacing: 14px; 
+
+} 
+
+
+.page-18 #page-content {
+    font-size: 30px; 
+    margin: 40px;  
+}
+
+.page-18 #page-content .word-ice { letter-spacing: 14px; }
+.page-18 #page-content .word-blackbirds { letter-spacing: 12px; }
+.page-18 #page-content .word-seafog { letter-spacing: 17px; }
+.page-18 #page-content .word-condensation { letter-spacing: 12px; }
+.page-18 #page-content .word-harmonics { letter-spacing: 15px; }
+.page-18 #page-content .word-clench { letter-spacing: -10px; }
+.page-18 #page-content .word-white { letter-spacing: 15px; }
+.page-18 #page-content .word-snapping { letter-spacing: 13px; }
+.page-18 #page-content .word-bare { letter-spacing: -8px; } 
+.page-18 #page-content .word-wounded { letter-spacing: -6px; }
+.page-18 #page-content .word-saucers { letter-spacing: 12px; }
+.page-18 #page-content .word-fracturing { letter-spacing: 15px; }
+.page-18 #page-content .word-particoloured { letter-spacing: 2.5px; }
+.page-18 #page-content .word-convulsive { letter-spacing: -10px; }
+.page-18 #page-content .word-cold { letter-spacing: -8px; }
+
+
+.page-19  .line-1,
+.page-19  .line-2,
+.page-19  .line-3,
+.page-19  .line-4,
+.page-19  .line-5,
+.page-19  .line-6,
+.page-19  .line-7,
+.page-19  .line-8 {
+    display: block; 
+    width: 100%; 
+    line-height: 1.2;
+    font-size: 20px;
+
+} 
+.page-19 .line-1 { letter-spacing: -2px; }
+.page-19 .line-2 { letter-spacing: 1px; }
+.page-19 .line-3 { letter-spacing: 2px;} 
+.page-19 .line-4 { letter-spacing: 4px; }
+.page-19 .line-5 { letter-spacing: 6px; } 
+.page-19 .line-6 { letter-spacing: 8px;}
+.page-19 .line-7 { letter-spacing: 10px; }
+.page-19 .line-8 { letter-spacing: 12px; } 
+
+
+
+.page-20  {
+    background-color: black;
+    color: white; 
+}
+
+.page-20 #page-content{
+    font-size: 35px;
+    word-spacing: 40px; /* Adds more space between words */
+    font-family: "Crimson Pro", serif;
+    
+}
+
+/* #endregion */
