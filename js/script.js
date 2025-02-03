@@ -1,6 +1,6 @@
 // Define total number of pages
 const totalPages = 20;
-const variations = ["Variation A", "Variation B", "Variation C", "Variation D", "Variation E"];
+const variations = ["WEIGHT", "Variation B", "Variation C", "Variation D", "Variation E"];
 
 
 // Get elements
@@ -15,42 +15,75 @@ let currentPage = parseInt(new URLSearchParams(window.location.search).get("page
 // Ensure page number is within valid range
 currentPage = Math.max(1, Math.min(currentPage, totalPages));
 
-// Define the base text (same for all pages)
-const baseText = "It’s turned cold: cold so that saucers of ice lie in the mud, blank and crazed as antique porcelain. Cold so the hedges are alive with Baltic blackbirds; so cold that each breath hangs like parcelled seafog in the air. The blue sky rings with it, and the bell on Mabels tail is dimmed with condensation. Cold, cold, cold. My feet crack the ice in the mud as I trudge uphill. And because the squeaks and grinding harmonics of fracturing ice sound to Mabel like a wounded animal, every step I take is met with a convulsive clench of her toes. Where the world isn’t white with frost, it’s striped green and brown in strong sunlight, so the land is particoloured and snapping backwards to dawn and forwards to dusk. The days, now, are a bare six hours long.";
+// Define the base text for all pages
+const baseText = `
+    <span class="line-1">It’s turned <span class="word-cold">cold</span>: <span class="word-cold">cold</span> so that saucers of 
+    <span class="word-ice">ice</span> lie in the mud, blank and crazed as antique porcelain.</span> 
+    
+    <span class="line-2"><span class="word-cold">Cold</span> so the hedges are alive with Baltic 
+    <span class="word-blackbirds">blackbirds</span>; so <span class="word-cold">cold</span> that each breath 
+    hangs like parcelled <span class="word-seafog">seafog</span> in the air.</span> 
+    
+    <span class="line-3">The blue sky rings with it, and the bell on Mabel’s tail is dimmed with 
+    <span class="word-condensation">condensation</span>.</span> 
+    
+    <span class="line-4"><span class="word-cold">Cold</span>, <span class="word-cold">cold</span>, <span class="word-cold">cold</span>.</span> 
+    
+    <span class="line-5">My feet crack the <span class="word-ice">ice</span> in the mud as I trudge uphill.</span> 
+    
+    <span class="line-6">And because the squeaks and grinding <span class="word-harmonics">harmonics</span> 
+    of fracturing ice sound to Mabel like a wounded animal, every step I take is met with a convulsive 
+    <span class="word-clench">clench</span> of her toes.</span> 
+    
+    <span class="line-7">Where the world isn’t <span class="word-white">white</span> with frost, it’s striped green and 
+    brown in strong sunlight, so the land is particoloured and <span class="word-snapping">snapping</span> 
+    backwards to dawn and forwards to dusk.</span> 
+    
+    <span class="line-8">The days, now, are a <span class="word-bare">bare</span> six hours long.</span>
+`;
 
-// Define attributes for each page (you can expand this)
-const pageAttributes = {
-    1: {  fontSize: "16px", fontWeight: "normal" },
-    2: { fontSize: "18px", fontWeight: "bold" },
-    3: { fontSize: "20px", fontWeight: "lighter" },
-    4: { fontSize: "22px", fontWeight: "bold" },
-    5: { fontSize: "24px", fontWeight: "normal" },
-    6: { fontSize: "16px", fontWeight: "normal" },
-   
-};
+//GPT wrapped spans for me!
 
+
+// Function to update content and styles dynamically
 // Function to update content and styles dynamically
 function updatePage() {
     const variationIndex = Math.floor((currentPage - 1) / 4); // Groups pages into sets of 4
     const variationName = variations[variationIndex];
 
+    // Update text content
     pageInfo.textContent = `Excerpt from H is for Hawk by Helen MacDonald – ${variationName} – Page ${currentPage}`;
-    pageContent.textContent = baseText;
+    pageContent.innerHTML = baseText;
 
-    // Apply styles based on attributes
-    if (pageAttributes[currentPage]) {
-        pageContent.style.color = pageAttributes[currentPage].color;
-        pageContent.style.fontSize = pageAttributes[currentPage].fontSize;
-        pageContent.style.fontWeight = pageAttributes[currentPage].fontWeight;
-    }
+    // Remove old page classes from <body>
+    document.body.classList.forEach(className => {
+        if (className.startsWith("page-")) {
+            document.body.classList.remove(className);
+        }
+    });
+
+    // Add the new page-specific class to <body>
+    document.body.classList.add(`page-${currentPage}`);
+
+    // Remove old page classes from pageContent
+    Array.from(pageContent.classList).forEach(className => {
+        if (className.startsWith("page-")) {
+            pageContent.classList.remove(className);
+        }
+    });
+
+    // Add the new page-specific class to pageContent
+    pageContent.classList.add(`page-${currentPage}`);
 
     // Update URL without reloading the page
     window.history.pushState({}, "", `?page=${currentPage}`);
 
-    // Disable buttons at page limits
+    // Update button states
     prevBtn.disabled = (currentPage === 1);
     nextBtn.disabled = (currentPage === totalPages);
 }
+
+
 
 // Button Click Events
 prevBtn.addEventListener("click", () => {

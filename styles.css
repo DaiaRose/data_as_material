@@ -1,12 +1,19 @@
+/* #region setup */
+#page-info-container {
+    position: fixed;
+    top: 10px;
+    z-index: 90; /* Keeps it above other elements */
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
 
-.bold-text { font-weight: bold; }
-.large-text { font-size: 24px; }
-
-h6 {
+/* Ensures h6 inside the container keeps its styling */
+#page-info {
     font-family: "Cutive Mono", monospace;
     font-size: 18px;
     font-weight: bold;
-    margin: 0;
+    margin: 10px;
 }
 
 .navigation {
@@ -15,6 +22,7 @@ h6 {
     right: 20px; /* Adjust as needed */
     display: flex;
     gap: 10px;
+    z-index: 100;
 }
 
 .arrow {
@@ -39,3 +47,51 @@ p {
     font-size: 16px;
     margin: 40px;
 }
+
+/* #endregion  */
+
+
+.page-1 #page-content {font-size: 16px; font-weight: 100; margin: 200px;}
+.page-1 .word-cold {font-weight: 900; font-size: 19px; text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.5); }
+
+.page-2 #page-content {font-size: 30px; margin: 100px;}
+.page-2 .line-1 { font-weight: 100; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); } 
+.page-2 .line-2 { font-weight: 200; text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3); } 
+.page-2 .line-3 { font-weight: 300; text-shadow: 3px 3px 4px rgba(0, 0, 0, 0.4); } 
+.page-2 .line-4 { font-weight: 400; text-shadow: 4px 4px 5px rgba(0, 0, 0, 0.5); } 
+.page-2 .line-5 { font-weight: 500; text-shadow: 5px 5px 6px rgba(0, 0, 0, 0.6); } 
+.page-2 .line-6 { font-weight: 600; text-shadow: 6px 6px 7px rgba(0, 0, 0, 0.7); } 
+.page-2 .line-7 { font-weight: 700; text-shadow: 7px 7px 8px rgba(0, 0, 0, 0.7); } 
+.page-2 .line-8 { font-weight: 800; text-shadow: 8px 8px 9px rgba(0, 0, 0, 0.9); } 
+
+
+.page-3 {
+    background-color: black;
+    color: white; 
+}
+.page-3 #page-content {
+    font-size: 20px; 
+    font-weight: 200; 
+    margin: 0px;
+    font-family: "Ultra", serif;
+    position: fixed; 
+    bottom:0;}
+
+
+.page-4 { font-size: 22px; font-weight: bold; }
+
+/* 
+.word-ice { font-style: italic; }
+.word-blackbirds { text-transform: uppercase; }
+.word-seafog { font-weight: lighter; }
+.word-condensation { text-decoration: underline; }
+.word-harmonics { font-size: larger; }
+.word-clench { font-style: italic; }
+.word-white { font-weight: bold; }
+.word-snapping { text-transform: uppercase; font-weight: bold; }
+.word-bare { letter-spacing: 2px; } */
+
+
+
+.page-5 { font-size: 24px; font-weight: normal; }
+.page-11 { font-size: 40px; font-weight: bold; }
