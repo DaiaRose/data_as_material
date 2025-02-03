@@ -156,8 +156,70 @@ p {
 }
 
 
+.page-10 #page-content {
+    line-height: 2;
+    margin: 60px; 
+    font-family: "IBM Plex Sans", sans-serif;
+    font-style: oblique 15deg;
+    font-weight: 200;
+    font-size: 30px;
+    transform: skewX(-50deg);
+}
 
-.page-11 { font-size: 40px; font-weight: bold;text-decoration: underline;
+
+.page-11  .line-1,
+.page-11  .line-2,
+.page-11  .line-3,
+.page-11  .line-4,
+.page-11  .line-5,
+.page-11  .line-6,
+.page-11  .line-7,
+.page-11  .line-8 {
+    display: block; 
+    width: 100%; 
+    line-height: 1.2;
+    font-size: 30px;
+} 
+.page-11 .line-1 { transform: skewX(-5deg); }
+.page-11 .line-2 { transform: skewX(-10deg); }
+.page-11 .line-3 { transform: skewX(-15deg); } 
+.page-11 .line-4 { transform: skewX(-20deg); }
+.page-11 .line-5 { transform: skewX(-25deg); } 
+.page-11 .line-6 { transform: skewX(-30deg); }
+.page-11 .line-7 { transform: skewX(-35deg); }
+.page-11 .line-8 { transform: skewX(-40deg); } 
+
+
+.page-12  .line-1,
+.page-12  .line-2,
+.page-12  .line-3,
+.page-12  .line-4,
+.page-12  .line-5,
+.page-12  .line-6,
+.page-12  .line-7,
+.page-12  .line-8 {
+    display: block; 
+    width: 100%; 
+    line-height: 1.2;
+    font-size: 30px;
+} 
+.page-12 .line-1 { transform: skewX(-40deg); }
+.page-12 .line-2 { transform: skewX(-40deg); }
+.page-12 .line-3 { transform: skewX(-40deg); } 
+.page-12 .line-4 { transform: skewX(-40deg); }
+.page-12 .line-5 { transform: skewX( 30deg); } 
+.page-12 .line-6 { transform: skewX( 30deg); }
+.page-12 .line-7 { transform: skewX( 30deg); }
+.page-12 .line-8 { transform: skewX( 30deg); } 
+
+
+/* #endregion */
+
+
+
+
+/* #region BORDER*/
+.page-14 { font-size: 35px; font-weight: bold;text-decoration: underline;
     text-decoration-style: wavy; }
 /* #endregion */
 
