@@ -1,0 +1,41 @@
+
+.bold-text { font-weight: bold; }
+.large-text { font-size: 24px; }
+
+h6 {
+    font-family: "Cutive Mono", monospace;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.navigation {
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
+    display: flex;
+    gap: 10px;
+}
+
+.arrow {
+    font-size: 18px;
+    text-decoration: none;
+    padding: 4px 8px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background: white;
+    color: black;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.arrow:hover {
+    background: rgb(111, 111, 111);
+    color: white;
+}
+
+p {
+    font-family: "Cutive Mono", monospace;
+    font-size: 16px;
+    margin: 40px;
+}
