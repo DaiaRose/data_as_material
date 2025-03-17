@@ -1,7 +1,7 @@
 
 #gpt wrote this code thorugh my requests and feedback
 
-
+import json
 from substack_api import newsletter, user
 
 
@@ -11,13 +11,6 @@ print(dir(newsletter))
 # List all available attributes and methods
 print(dir(user))
 
-
-# import json
-# from substack_api import newsletter, user, post
-
-# # Check available attributes in the user module
-# print("\n🔍 Available User Methods:")
-# print(dir(user))
 
 # # Fetch and display categories
 # categories = newsletter.list_all_categories()
@@ -35,22 +28,24 @@ print(dir(user))
 #     except Exception as e:
 #         print(f"\n⚠️ Unable to fetch newsletters for category {cat_name}: {str(e)}")
 
-# # Fetch recent post metadata from a specific newsletter
-# newsletter_slug = "platformer"
-# try:
-#     recent_posts = newsletter.get_newsletter_post_metadata(newsletter_slug, start_offset=0, end_offset=5)
-#     print("\n📝 Recent Posts from Platformer:")
-#     for post in recent_posts:
-#         title = post.get('title', 'No Title')
-#         url = post.get('canonical_url', 'No URL')
-#         slug = post.get('slug', None)  # Extract slug
-#         print(f"- {title} ({url})")
-# except Exception as e:
-#     print("\n⚠️ Unable to fetch recent posts from Platformer:", str(e))
+
+
+# Fetch recent post metadata from a specific newsletter
+newsletter_slug = "erininthemorn"
+try:
+    recent_posts = newsletter.get_newsletter_post_metadata(newsletter_slug, start_offset=0, end_offset=5)
+    print("Recent Posts from Newsletter:")
+    for post in recent_posts:
+        title = post.get('title', 'No Title')
+        url = post.get('canonical_url', 'No URL')
+        slug = post.get('slug', None)  # Extract slug
+        print(f"- {title} ({url})")
+except Exception as e:
+    print("\n⚠️ Unable to fetch recent posts from Newsletter:", str(e))
 
 # # Fetch full post content if available
 # if recent_posts:
-#     print("\n📖 Full Post Content from Platformer:")
+#     print("\n📖 Full Post Content from Newsletter:")
 #     for post in recent_posts:
 #         post_id = post.get('id')
 #         title = post.get('title', 'No Title')
