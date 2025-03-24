@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template
 from substack_api import Newsletter
 from bs4 import BeautifulSoup  # Make sure you have this installed
+import html 
 
 app = Flask(__name__)
 
@@ -43,16 +44,29 @@ def get_post_by_slug(slug):
             if slug in url:
                 content_html = post.get_content()
                 
-                # Strip HTML and split into words
+                # Parse HTML and extract text
                 soup = BeautifulSoup(content_html, "html.parser")
                 text = soup.get_text(separator=" ")
-                words = [word for word in text.split() if word.strip()]
                 
+                # Convert HTML entities to their corresponding characters
+                text = html.unescape(text)
+                # Remove any remaining instances of "$#34;"
+                text = text.replace("$#34;", "")
+                
+                # Remove the tagline and any text before it
+                tagline = "Erin In The Morning is a reader-supported publication. To receive new posts and support my work, consider becoming a subscriber."
+                index = text.find(tagline)
+                if index != -1:
+                    text = text[index + len(tagline):]
+                
+                # Split the cleaned text into words and return as JSON
+                words = [word for word in text.split() if word.strip()]
                 return jsonify(words)
 
         return jsonify({"error": "Post not found"}), 404
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
 
 
 @app.route("/")

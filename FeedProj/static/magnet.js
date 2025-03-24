@@ -9,6 +9,13 @@ function preload() {
   backImg = loadImage(backImageUrl);
 }
 
+function decodeHTMLEntities(text) {
+  const textarea = document.createElement("textarea");
+  textarea.innerHTML = text;
+  return textarea.value;
+}
+
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   textFont('Arial');
@@ -17,7 +24,7 @@ function setup() {
   fetch(`/api/post/${postSlug}`)
     .then(response => response.json())
     .then(data => {
-      const titleWords = postTitle.split(/\s+/);
+      const titleWords = decodeHTMLEntities(postTitle).split(/\s+/);
       const bodyWords = data;
       
       console.log("✅ Title words:", titleWords);
@@ -69,21 +76,43 @@ function setupWordMagnets(titleWords, bodyWords) {
   let margin = 70;
   let titleFontSize = 28;
   textSize(titleFontSize);
-  // Maximum width for title magnets (leaving margins)
+  
+  // Maximum width available for title (leaving margins)
   let maxTitleWidth = width - 2 * margin;
   
-  // Wrap title words into lines if needed
-  let titleLines = wrapWords(titleWords, maxTitleWidth, spacingX);
-  let titleStartY = 20;
-  // Increase line spacing so that multiple lines don't overlap:
-  let lineSpacing = titleFontSize + 30;  // Adjust the extra spacing as needed
+  // Calculate total width if the title were in one line
+  let totalTitleWidth = titleWords.reduce((acc, word) => acc + (textWidth(word) + 30), 0)
+                        + (titleWords.length - 1) * spacingX;
   
-  // Place title magnets line by line, centering each line
+  let titleLines;
+  if (totalTitleWidth <= maxTitleWidth) {
+      // Title fits in one line
+      titleLines = [{ words: titleWords, lineWidth: totalTitleWidth }];
+  } else {
+      // Title is too long; split into two lines by dividing the words array
+      let mid = Math.ceil(titleWords.length / 2);
+      let firstLineWords = titleWords.slice(0, mid);
+      let secondLineWords = titleWords.slice(mid);
+      
+      let firstLineWidth = firstLineWords.reduce((acc, word) => acc + (textWidth(word) + 30), 0)
+                          + (firstLineWords.length - 1) * spacingX;
+      let secondLineWidth = secondLineWords.reduce((acc, word) => acc + (textWidth(word) + 30), 0)
+                           + (secondLineWords.length - 1) * spacingX;
+      
+      titleLines = [
+         { words: firstLineWords, lineWidth: firstLineWidth },
+         { words: secondLineWords, lineWidth: secondLineWidth }
+      ];
+  }
+  
+  // Position title lines
+  let titleStartY = 20;
+  let lineSpacing = titleFontSize + 30;  // Adjust extra spacing between lines as needed
+  
   for (let i = 0; i < titleLines.length; i++) {
     let line = titleLines[i];
-    // Compute starting X so that this line is centered
-    let lineStartX = (width - line.lineWidth) / 2;
-    let lineY = titleStartY + i * lineSpacing;  // Each line is lineSpacing lower than the previous line
+    let lineStartX = (width - line.lineWidth) / 2; // Center each line
+    let lineY = titleStartY + i * lineSpacing;
     for (let word of line.words) {
       let wordWidth = textWidth(word) + 30;
       rectangles.push(new DraggableRect(lineStartX, lineY, word, 'title'));
@@ -115,13 +144,6 @@ function setupWordMagnets(titleWords, bodyWords) {
   }
 }
 
-
-
-  
-//   // Place title and body magnets
-//   placeWords(titleWords, 'title');
-//   placeWords(bodyWords, 'body');
-// }
 
 function draw() {
   background(240);
