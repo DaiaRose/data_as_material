@@ -17,7 +17,7 @@ function decodeHTMLEntities(text) {
 
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, 5000);
   textFont('Arial');
 
   // Fetch the body words from your API endpoint and then set up magnets
