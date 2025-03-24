@@ -3,41 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ title }}</title>
+</head><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ title }}</title>
 </head>
 <body>
-    <a href="/" title="Back to homepage">
-        <img src="{{ url_for('static', filename='fridge.png') }}" alt="Back" style="height: 52px; width: auto;">
-    </a>
-
-    <h1>{{ title }}</h1>
-    <div id="word-output">news magnets in creation...</div>
-
-    <!-- <script>
-        this just does an array of the words
-        const slug = "{{ slug }}";
-
-        fetch(`/api/post/${slug}`)
-            .then(response => response.json())
-            .then(words => {
-                const output = document.getElementById("word-output");
-                output.innerHTML = `<pre>${JSON.stringify(words, null, 2)}</pre>`;
-            })
-            .catch(err => {
-                document.getElementById("word-output").textContent = "Error loading post.";
-                console.error(err);
-            });
-
-    </script> -->
-
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
-
-    <script>
-        const postSlug = "{{ slug }}";
-        const postTitle = "{{ title }}";
+<script>
+    const postSlug = "{{ slug }}";
+    const postTitle = "{{ title }}";
+    const backImageUrl = "{{ url_for('static', filename='fridge.png') }}";
     </script>
-    
-    <script src="{{ url_for('static', filename='magnet.js') }}"></script>    
-
+      
+  
+  <!-- Load p5.js and your magnet.js -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.0/lib/p5.min.js"></script>
+  <script src="{{ url_for('static', filename='magnet.js') }}"></script>
 </body>
 </html>
 
