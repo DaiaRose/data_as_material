@@ -17,9 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 postElement.innerHTML = `
                     <time datetime="${post.post_date}">${new Date(post.post_date).toLocaleString()}</time>
-                    <h2><a href="${post.url}" target="_blank">${post.title}</a></h2>
+                    <h2><a href="/post/${new URL(post.url).pathname.split('/').filter(Boolean).pop()}">${post.title}</a></h2>
                     <h3>${post.subtitle}</h3>
                 `;
+
 
                 postsContainer.appendChild(postElement);
             });
