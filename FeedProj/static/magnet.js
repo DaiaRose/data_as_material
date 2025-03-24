@@ -1,12 +1,15 @@
-let words = [];
 let rectangles = [];
 
 fetch(`/api/post/${postSlug}`)
   .then(response => response.json())
   .then(data => {
-    words = data;
-    console.log("✅ Loaded word array:", words);
-    setupWordMagnets(); // Trigger layout once words are ready
+    const titleWords = postTitle.split(/\s+/);
+    const bodyWords = data;
+
+    console.log("✅ Title words:", titleWords);
+    console.log("✅ Body words:", bodyWords);
+
+    setupWordMagnets(titleWords, bodyWords);
   })
   .catch(error => {
     console.error("Error fetching word array:", error);
@@ -16,40 +19,39 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
 }
 
-function setupWordMagnets() {
+function setupWordMagnets(titleWords, bodyWords) {
   let startX = 50;
   let startY = 50;
-  let spacingY = 20;
-  let spacingX = 10;
+  let spacingY = 60; // Vertical spacing between rows
+  let spacingX = 10; // Horizontal spacing between words
   let currentX = startX;
   let currentY = startY;
-  let maxRowHeight = 0;
-
-  rectangles = []; // Clear any old ones
+  let maxRowHeight = 0; // Track tallest word in row for spacing
 
   textSize(16);
-  
-  for (let i = 0; i < words.length; i++) {
-    let word = words[i];
 
-    let wordWidth = textWidth(word) + 30;
-    let wordHeight = 30;
+  function placeWords(words, type) {
+    for (let word of words) {
+      const fontSize = type === 'title' ? 28 : 16;
+      textSize(fontSize);
+      const wordWidth = textWidth(word) + 30;
+      const wordHeight = fontSize + 24;
 
-    if (currentX + wordWidth > width - 50) {
-      currentX = startX;
-      currentY += maxRowHeight + spacingY;
-      maxRowHeight = 0;
-    }
+      // Move to next row if word doesn't fit
+      if (currentX + wordWidth > width - 50) {
+        currentX = startX;
+        currentY += maxRowHeight + spacingY;
+        maxRowHeight = 0;
+      }
 
-    rectangles.push(new DraggableRect(currentX, currentY, word));
-
-    currentX += wordWidth + spacingX;
-    maxRowHeight = max(maxRowHeight, wordHeight);
-
-    if (currentY + wordHeight > height - 50) {
-      break;
+      rectangles.push(new DraggableRect(currentX, currentY, word, type));
+      currentX += wordWidth + spacingX;
+      maxRowHeight = max(maxRowHeight, wordHeight);
     }
   }
+
+  placeWords(titleWords, 'title');
+  placeWords(bodyWords, 'body');
 }
 
 function draw() {
@@ -74,14 +76,15 @@ function mouseReleased() {
 }
 
 class DraggableRect {
-  constructor(x, y, label) {
+  constructor(x, y, label, type = 'body') {
     this.x = x;
     this.y = y;
     this.label = label;
-    this.h = 40;
+    this.type = type;
+    this.h = type === 'title' ? 50 : 40;
     this.padding = 15;
 
-    textSize(16);
+    textSize(this.type === 'title' ? 28 : 16);
     this.w = textWidth(this.label) + this.padding * 2;
 
     this.dragging = false;
@@ -112,7 +115,7 @@ class DraggableRect {
 
     noStroke();
     fill(0);
-    textSize(16);
+    textSize(this.type === 'title' ? 28 : 16);
     textAlign(CENTER, CENTER);
     text(this.label, this.x + this.w / 2, this.y + this.h / 2);
   }
