@@ -1,0 +1,124 @@
+<!-- clusterView.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Circus Cluster Viewer</title>
+  <style>
+    body { font-family: sans-serif; padding: 1em; }
+    .cluster-selector { margin-bottom: 1em; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px,1fr));
+      gap: 8px;
+    }
+    .grid-item {
+      position: relative;
+      cursor: pointer;
+    }
+    .grid-item img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border: 1px solid #ccc;
+      padding: 4px;
+      background: #fafafa;
+    }
+    .grid-item:hover::after {
+      content: attr(data-filename);
+      position: absolute;
+      bottom: 4px;
+      left: 4px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      font-size: 12px;
+      padding: 2px 4px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.8);
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 4px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .toast.show {
+      opacity: 1;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+</head>
+<body>
+  <h1>Circus Cluster Viewer</h1>
+  <div class="cluster-selector">
+    <label>
+      Select cluster:
+      <select id="clusterSelect"></select>
+    </label>
+  </div>
+  <div id="imageGrid" class="grid"></div>
+  <div id="toast" class="toast">Copied!</div>
+
+  <script>
+    // Show temporary toast message
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1500);
+    }
+
+    fetch('cluster_results.csv')
+      .then(r => r.text())
+      .then(text => {
+        const rows = Papa.parse(text, { header: true, skipEmptyLines: true }).data
+                          .filter(r => r.filename && r.filename.trim() !== '');
+        const clusters = {};
+        rows.forEach(r => {
+          const c = r.cluster;
+          if (c == null || c === '') return;
+          clusters[c] = clusters[c] || [];
+          clusters[c].push(r.filename);
+        });
+        const select = document.getElementById('clusterSelect');
+        Object.keys(clusters).map(k => k.trim()).sort((a,b) => Number(a)-Number(b)).forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c;
+          opt.textContent = c === '-1' ? `noise (−1) (${clusters[c].length})` : `cluster ${c} (${clusters[c].length})`;
+          select.appendChild(opt);
+        });
+        function renderCluster(clusterId) {
+          const grid = document.getElementById('imageGrid');
+          grid.innerHTML = '';
+          (clusters[clusterId]||[]).forEach(fname => {
+            const container = document.createElement('div');
+            container.className = 'grid-item';
+            container.setAttribute('data-filename', fname);
+            const img = document.createElement('img');
+            img.src = 'CircusImages/' + fname;
+            img.alt = fname;
+            container.appendChild(img);
+            // Copy filename on click
+            container.addEventListener('click', () => {
+              navigator.clipboard.writeText(fname)
+                .then(() => showToast(`Copied: ${fname}`))
+                .catch(err => console.error('Clipboard error', err));
+            });
+            grid.appendChild(container);
+          });
+        }
+        select.addEventListener('change', e => renderCluster(e.target.value));
+        select.selectedIndex = 0;
+        if (select.value) renderCluster(select.value);
+      })
+      .catch(console.error);
+  </script>
+</body>
+</html>
+
+
