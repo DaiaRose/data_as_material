@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circus Vector Viewer</title>
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+  <!-- External Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js" defer></script>
+  <script src="https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js" defer></script>
+  <!-- Application Script -->
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <!-- Pan/Zoom Container -->
+  <div id="pan-container"></div>
+  <!-- Home Button -->
+  <button id="resetButton">Home</button>
+  <!-- Tooltip & Toast Containers -->
+  <div id="tooltip" class="tooltip"></div>
+  <div id="toast" class="toast"></div>
+</body>
+</html>
+
+
+
+
+<!--beautiful home, zoom, container, double click-->
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Circus Vector Viewer</title>
+  <style>
+    body { margin: 0; padding: 0; overflow: hidden; }
+    #pan-container {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      padding: 50px;
+      box-sizing: border-box;
+      background: #fff;
+      overflow: hidden;
+      transform-origin: 0 0;
+    }
+    #pan-container img {
+      position: absolute;
+      width: 25px; height: auto;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      transition: opacity 0.2s, z-index 0.2s;
+      z-index: 1;
+    }
+    #pan-container img:hover { opacity: 0.8; }
+    .tooltip, .toast {
+      position: fixed;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 4px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      z-index: 1001;
+    }
+    .tooltip { z-index: 1002; }
+    .toast { bottom: 20px; right: 20px; }
+    .toast.show, .tooltip.show { opacity: 1; }
+    #resetButton {
+      position: fixed; top: 20px; right: 20px;
+      z-index: 1003; padding: 0.5em 1em;
+      background: #007bff; color: #fff;
+      border: none; border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+  <script src="https://unpkg.com/panzoom@9.4.0/dist/panzoom.min.js"></script>
+</head>
+<body>
+  <div id="pan-container"></div>
+  <button id="resetButton">Home</button>
+  <div id="tooltip" class="tooltip"></div>
+  <div id="toast" class="toast"></div>
+  <script>
+    const container = document.getElementById('pan-container');
+    const tooltip   = document.getElementById('tooltip');
+    const toast     = document.getElementById('toast');
+    let panzoomInstance;
+
+    const MAX_ZOOM   = 20;
+    const DBL_FACTOR = 4;
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1000);
+    }
+    function showTooltip(msg, x, y) {
+      tooltip.textContent = msg;
+      tooltip.style.left = `${x}px`;
+      tooltip.style.top  = `${y}px`;
+      tooltip.classList.add('show');
+    }
+    function hideTooltip() { tooltip.classList.remove('show'); }
+
+    fetch('vector_results.csv')
+      .then(r => r.text())
+      .then(text => {
+        const rows = Papa.parse(text, { header:true, skipEmptyLines:true }).data
+                          .filter(d => d.filename && d.x!=null && d.y!=null);
+        const xs = rows.map(r => +r.x), ys = rows.map(r => +r.y);
+        const minX = Math.min(...xs), maxX = Math.max(...xs);
+        const minY = Math.min(...ys), maxY = Math.max(...ys);
+        const pad = 50;
+        const contentW = container.clientWidth - 2 * pad;
+        const contentH = container.clientHeight - 2 * pad;
+
+        rows.forEach(d => {
+          const xNorm = (+d.x - minX) / (maxX - minX);
+          const yNorm = (+d.y - minY) / (maxY - minY);
+          const img = document.createElement('img');
+          img.src = `CircusImages/${d.filename}`;
+          img.alt = d.filename;
+          img.style.left = `${pad + contentW * xNorm}px`;
+          img.style.top  = `${pad + contentH * yNorm}px`;
+
+          img.addEventListener('mouseover', e => showTooltip(d.filename, e.pageX + 5, e.pageY + 5));
+          img.addEventListener('mouseout', hideTooltip);
+          img.addEventListener('click', () => {
+            container.querySelectorAll('img').forEach(el => el.style.zIndex = 1);
+            img.style.zIndex = 1000;
+            navigator.clipboard.writeText(d.filename).then(() => showToast(`Copied: ${d.filename}`));
+          });
+          container.appendChild(img);
+        });
+
+        panzoomInstance = panzoom(container, {
+          maxZoom: MAX_ZOOM,
+          minZoom: 1,
+          contain: 'outside',
+          zoomDoubleClickSpeed: 1,
+          onDoubleClick: () => false
+        });
+        container.addEventListener('wheel', panzoomInstance.zoomWithWheel);
+
+        // Custom double-click on container
+        container.addEventListener('dblclick', e => {
+          const rect = container.getBoundingClientRect();
+          const cx = e.clientX - rect.left;
+          const cy = e.clientY - rect.top;
+          // Zoom to fixed factor and center click point
+          panzoomInstance.zoomAbs(cx, cy, DBL_FACTOR);
+          panzoomInstance.moveTo(
+            rect.width / 2 - cx * DBL_FACTOR,
+            rect.height / 2 - cy * DBL_FACTOR
+          );
+        });
+
+        // Home button: reset via Panzoom API
+        document.getElementById('resetButton').addEventListener('click', () => {
+          panzoomInstance.moveTo(0, 0);
+          panzoomInstance.zoomAbs(0, 0, 1);
+        });
+      })
+      .catch(console.error);
+  </script>
+</body>
+</html>
+
+
+
+
