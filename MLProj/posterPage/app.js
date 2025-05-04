@@ -43,7 +43,6 @@ fetch('vector_results.csv')
       const xNorm = (+d.x - minX) / (maxX - minX);
       const yNorm = (+d.y - minY) / (maxY - minY);
       const img = document.createElement('img');
-      // Adjusted path to traverse up one directory
       img.src = `../CircusImages/${d.filename}`;
       img.alt = d.filename;
       img.style.left = `${pad + contentW * xNorm}px`;
@@ -82,10 +81,49 @@ fetch('vector_results.csv')
       );
     });
 
-    // Home button: reset pan + zoom via Panzoom API
-    document.getElementById('resetButton').addEventListener('click', () => {
+    // Build a single controls panel
+    const controls = document.createElement('div');
+    controls.className = 'zoom-controls';
+
+   // Pull the Home logo into the panel
+    const homeBtn = document.getElementById('resetButton');
+    homeBtn.classList.add('home-button');
+
+    // Re-bind the reset behavior now that we’ve moved it
+    homeBtn.addEventListener('click', () => {
       panzoomInstance.moveTo(0, 0);
       panzoomInstance.zoomAbs(0, 0, 1);
     });
+
+    controls.appendChild(homeBtn);
+
+    // Then add zoom buttons below it
+    const zoomInBtn = document.createElement('button');
+    zoomInBtn.textContent = '+';
+    zoomInBtn.title = 'Zoom In';
+    zoomInBtn.addEventListener('click', () => {
+      const { scale } = panzoomInstance.getTransform();
+      const newScale = Math.min(scale * 1.2, MAX_ZOOM);
+      panzoomInstance.zoomTo(container.clientWidth/2, container.clientHeight/2, newScale);
+    });
+
+    const zoomOutBtn = document.createElement('button');
+    zoomOutBtn.textContent = '−';
+    zoomOutBtn.title = 'Zoom Out';
+    zoomOutBtn.addEventListener('click', () => {
+      const { scale } = panzoomInstance.getTransform();
+      const newScale = Math.max(scale / 1.2, 1);
+      panzoomInstance.zoomTo(container.clientWidth/2, container.clientHeight/2, newScale);
+    });
+
+    controls.appendChild(zoomInBtn);
+    controls.appendChild(zoomOutBtn);
+
+    // Finally, add the whole panel to the document
+    document.body.appendChild(controls);
+
+
+
   })
   .catch(console.error);
+

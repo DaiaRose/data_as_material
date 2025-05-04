@@ -58,20 +58,6 @@ body {
   opacity: 1;
 }
 
-/* Home button styling */
-#resetButton {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1003;
-  padding: 0.5em 1em;
-  background: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
 /* Homepage mosaic grid background */
 #mosaic-container {
   position: absolute;
@@ -143,3 +129,54 @@ footer {
   font-size: 1.2rem;
   z-index: 1001;
 }
+/* Zoom control panel in bottom‑right, vertical stack */
+.zoom-controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 1005;  /* above everything else */
+}
+
+/* Home button styling—match the zoom buttons */
+.home-button {
+  /* same dimensions as your zoom buttons */
+  width: 36px;
+  height: 36px;
+  background: #c78b36;
+  padding: 0px 1px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  border-radius: 4px;
+  object-fit: contain;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+/* Hover state matching your zoom-controls buttons */
+.home-button:hover {
+  background: #faae43;
+  opacity: 0.8;
+}
+
+
+/* Adjust zoom buttons to match */
+.zoom-controls button {
+  width: 36px;
+  height: 36px;
+  background: #c78b36;
+  color: #000;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  transition: background 0.2s;
+}
+.zoom-controls button:hover {
+  background: #faae43;
+}
+
