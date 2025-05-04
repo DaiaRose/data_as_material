@@ -100,12 +100,16 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -30%);
-  width: 250px;
-  height: 250px;
+  transform: translate(-50%, -40%);
+  width: 265px;
+  height: 265px;
   background: #C6B59D;
   border-radius: 20%;
   z-index: 1;
+}
+
+#mosaic-container:hover::before {
+  opacity: 0;
 }
 
 /* Inverse tent overlay above mosaic */
