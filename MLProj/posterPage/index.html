@@ -4,28 +4,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Circus Poster Archive</title>
+  <!-- Global Styles -->
   <link rel="stylesheet" href="styles.css" />
+  <!-- PapaParse for CSV parsing -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js" defer></script>
 </head>
 <body>
   <!-- Mosaic of all posters -->
   <div id="mosaic-container"></div>
+
   <!-- Inverse tent overlay as entry point -->
   <a href="app.html">
     <img id="inverse-tent" src="BlackTentButton.png" alt="Enter Gallery" />
   </a>
 
+  <!-- Footer -->
+  <footer>
+    Daia Bromberg  ❖  Data as Material  ❖  May, 2025
+  </footer>
+
+  <!-- Mosaic generation script -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const mosaic = document.getElementById('mosaic-container');
       fetch('vector_results.csv')
-        .then(r => r.text())
+        .then(response => response.text())
         .then(text => {
           const rows = Papa.parse(text, { header: true, skipEmptyLines: true }).data
                             .filter(d => d.filename);
           rows.forEach(d => {
             const thumb = document.createElement('img');
-            thumb.src = `../CircusImages/${d.filename}`;
+            thumb.src = `../CircusImages/${d.filename}`;  // adjust path if needed
             thumb.className = 'mosaic-thumb';
             mosaic.appendChild(thumb);
           });
@@ -35,5 +44,6 @@
   </script>
 </body>
 </html>
+
 
 
