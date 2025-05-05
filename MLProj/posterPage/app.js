@@ -113,7 +113,7 @@ fetch('vector_results.csv')
     zoomOutBtn.addEventListener('click', () => {
       const { scale } = panzoomInstance.getTransform();
       const newScale = Math.max(scale / 1.2, 1);
-      panzoomInstance.zoomTo(container.clientWidth/2, container.clientHeight/2, newScale);
+      panzoomInstance.zoomAbs(container.clientWidth/2, container.clientHeight/2, newScale);
     });
 
     controls.appendChild(zoomInBtn);
