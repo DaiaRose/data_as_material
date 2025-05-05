@@ -122,6 +122,29 @@ fetch('vector_results.csv')
     // Finally, add the whole panel to the document
     document.body.appendChild(controls);
 
+        // --- NEW: Top‑left "book" button ---
+    const topLeft = document.createElement('div');
+    topLeft.className = 'top-left-controls';
+
+    const bookBtn = document.createElement('img');
+    bookBtn.id = 'bookButton';
+    bookBtn.src = 'bookLogoBlack.png';
+    bookBtn.alt = 'Book';
+    bookBtn.classList.add('home-button'); // reuse that styling
+
+    const panel = document.getElementById('annotationsPanel');
+    panel.addEventListener('wheel', e => {
+      e.stopPropagation();
+    }, { passive: false });
+
+
+    bookBtn.addEventListener('click', () => {
+      panel.classList.toggle('visible');
+    });
+
+    topLeft.appendChild(bookBtn);
+    document.body.appendChild(topLeft);
+
 
 
   })
