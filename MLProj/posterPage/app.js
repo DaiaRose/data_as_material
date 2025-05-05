@@ -48,13 +48,13 @@ fetch('vector_results.csv')
       img.style.left = `${pad + contentW * xNorm}px`;
       img.style.top  = `${pad + contentH * yNorm}px`;
 
-      img.addEventListener('mouseover', e => showTooltip(d.filename, e.pageX + 5, e.pageY + 5));
-      img.addEventListener('mouseout', hideTooltip);
+      // img.addEventListener('mouseover', e => showTooltip(d.filename, e.pageX + 5, e.pageY + 5));
+      // img.addEventListener('mouseout', hideTooltip);
       img.addEventListener('click', () => {
         currentMaxZ += 1;           // bring clicked image to front
         img.style.zIndex = currentMaxZ;
         navigator.clipboard.writeText(d.filename)
-          .then(() => showToast(`Copied: ${d.filename}`));
+          // .then(() => showToast(`Copied: ${d.filename}`));
       });
       container.appendChild(img);
     });

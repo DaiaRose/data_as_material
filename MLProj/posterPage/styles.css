@@ -183,8 +183,8 @@ footer {
 /* Top‑left control container */
 .top-left-controls {
   position: fixed;
-  top: 40px;
-  left: 40px;
+  top: 30px;
+  left: 30px;
   display: flex;
   flex-direction: column;
   padding: 0px 3px;
@@ -206,7 +206,7 @@ footer {
   top: 90px;          /* just below your top controls */
   left: 30px;
   width: 300px;
-  height: calc(100vh - 80px);  /* leave room for top & bottom UI */
+  height: calc(100vh - 110px);  /* leave room for top & bottom UI */
 
   /* hide it by shifting fully left */
   transform: translateX(-110%);
@@ -218,8 +218,11 @@ footer {
   overflow-x: hidden;
 
   padding: 16px;
-  background: rgba(199, 139, 54,0.8);
+  background: rgba(199, 139, 54,0.9);
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
   box-sizing: border-box;
+  border-radius: 4px;
   z-index: 1006;
 }
 
